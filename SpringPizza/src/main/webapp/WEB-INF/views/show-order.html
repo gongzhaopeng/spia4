@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Pizza</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h2>Your order</h2>
+
+<h3>Deliver to:</h3>
+<!--/*@thymesVar id="order" type="com.springinaction.pizza.domain.Order"*/-->
+<b th:text="${order.customer.name}">Name</b><br/>
+<b th:text="${order.customer.address}">Address</b><br/>
+<b th:text="${T(java.lang.String).format('%s, %s %s', order.customer.city, order.customer.state, order.customer.zipCode)}">
+    City, State Zip-Code
+</b><br/>
+<b th:text="${order.customer.phoneNumber}">Phone Number</b><br/>
+<hr/>
+<h3>Order total:
+    <span th:text="${#numbers.formatCurrency(@pricingEngine.calculateOrderTotal(order))}">Total</span>
+</h3>
+<hr/>
+<h3>Pizzas:</h3>
+
+<b th:if="${order.pizzas.isEmpty()}">No pizzas in this order.<br/></b>
+
+<ul>
+    <li th:each="pizza : ${order.pizzas}"
+        th:text="${pizza.size + ' : ' + T(org.apache.commons.lang3.StringUtils).join(pizza.toppings, ', ')}">
+        Pizzas
+    </li>
+</ul>
+
+<form method="post">
+    <!--/*@thymesVar id="flowExecutionKey" type="java.lang.String"*/-->
+    <input type="hidden" name="_flowExecutionKey"
+           th:value="${flowExecutionKey}"/>
+    <input type="submit" name="_eventId_createPizza"
+           value="Create Pizza"/>
+    <input type="submit" name="_eventId_checkout"
+           value="Checkout"
+           th:if="${!order.pizzas.isEmpty()}"/>
+    <input type="submit" name="_eventId_cancel"
+           value="Cancel"/>
+</form>
+</body>
+</html>

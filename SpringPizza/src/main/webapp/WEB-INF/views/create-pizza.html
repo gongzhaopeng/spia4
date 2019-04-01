@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Pizza</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h2>Create Pizza</h2>
+
+<!--/*@thymesVar id="pizza" type="com.springinaction.pizza.domain.Pizza"*/-->
+<form method="post" th:object="${pizza}">
+    <!--/*@thymesVar id="flowExecutionKey" type="java.lang.String"*/-->
+    <input type="hidden" name="_flowExecutionKey"
+           th:value="${flowExecutionKey}"/>
+
+    <b>Size: </b><br/>
+    <input type="radio" th:field="*{size}" value="SMALL"/>
+    <label th:for="${#ids.prev('size')}">Small (12-inch)</label><br/>
+    <input type="radio" th:field="*{size}" value="MEDIUM"/>
+    <label th:for="${#ids.prev('size')}">Medium (14-inch)</label><br/>
+    <input type="radio" th:field="*{size}" value="LARGE"/>
+    <label th:for="${#ids.prev('size')}">Large (16-inch)</label><br/>
+    <input type="radio" th:field="*{size}" value="GINORMOUS"/>
+    <label th:for="${#ids.prev('size')}">Ginormous (20-inch)</label><br/>
+    <br/>
+
+    <b>Toppings: </b><br/>
+    <ul>
+        <!--/*@thymesVar id="toppingsList" type="java.util.List<com.springinaction.pizza.domain.Topping>"*/-->
+        <li th:each="topping : ${toppingsList}">
+            <input type="checkbox" th:field="*{toppings}" th:value="${topping.name()}"/>
+            <label th:for="${#ids.prev('toppings')}"
+                   th:text="${topping.toString()}">Topping</label>
+        </li>
+    </ul>
+    <br/>
+
+    <input type="submit" class="button"
+           name="_eventId_addPizza" value="Continue"/>
+    <input type="submit" class="button"
+           name="_eventId_cancel" value="Cancel"/>
+</form>
+</body>
+</html>

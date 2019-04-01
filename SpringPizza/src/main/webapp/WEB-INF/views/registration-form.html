@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Pizza</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h2>Customer Registration</h2>
+
+<!--/*@thymesVar id="order" type="com.springinaction.pizza.domain.Order"*/-->
+<form method="post" th:object="${order}">
+    <!--/*@thymesVar id="flowExecutionKey" type="java.lang.String"*/-->
+    <input type="hidden" name="_flowExecutionKey"
+           th:value="${flowExecutionKey}"/>
+    <b>Phone number: </b>
+    <input type="text" th:field="*{customer.phoneNumber}"/>
+    <br/>
+    <b>Name: </b>
+    <input type="text" th:field="*{customer.name}"/>
+    <br/>
+    <b>Address: </b>
+    <input type="text" th:field="*{customer.address}"/>
+    <br/>
+    <b>City: </b>
+    <input type="text" th:field="*{customer.city}"/>
+    <br/>
+    <b>State: </b>
+    <input type="text" th:field="*{customer.state}"/>
+    <br/>
+    <b>Zip Code: </b>
+    <input type="text" th:field="*{customer.zipCode}"/>
+    <br/>
+    <input type="submit" name="_eventId_submit"
+           value="Submit"/>
+    <input type="submit" name="_eventId_cancel"
+           value="Cancel"/>
+</form>
+</body>
+</html>

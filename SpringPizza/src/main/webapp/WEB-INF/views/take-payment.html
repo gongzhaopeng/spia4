@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Pizza</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h2>Take Payment</h2>
+<!--/*@thymesVar id="paymentDetails" type="com.springinaction.pizza.domain.PaymentDetails"*/-->
+<form method="post" name="paymentForm" th:object="${paymentDetails}">
+    <!--/*@thymesVar id="flowExecutionKey" type="java.lang.String"*/-->
+    <input type="hidden" name="_flowExecutionKey"
+           th:value="${flowExecutionKey}"/>
+
+    <input type="radio" th:field="*{paymentType}" value="CASH" onclick="hideCreditCardField()"/>
+    <label th:for="${#ids.prev('paymentType')}">Cash (taken at delivery)</label><br/>
+    <input type="radio" th:field="*{paymentType}" value="CHECK" onclick="hideCreditCardField()"/>
+    <label th:for="${#ids.prev('paymentType')}">Check (taken at delivery)</label><br/>
+    <input type="radio" th:field="*{paymentType}" value="CREDIT_CARD" onclick="showCreditCardField()"/>
+    <label th:for="${#ids.prev('paymentType')}">Credit Card:</label><br/>
+
+    <input type="text" th:field="*{creditCardNumber}" style="visibility: hidden"/>
+
+    <br/><br/>
+    <input type="submit" class="button"
+           name="_eventId_paymentSubmitted" value="Submit"/>
+    <input type="submit" class="button"
+           name="_eventId_cancel" value="Cancel"/>
+</form>
+</body>
+
+<script>
+    function showCreditCardField() {
+        var ccNumberStyle = document.paymentForm.creditCardNumber.style;
+        ccNumberStyle.visibility = 'visible';
+    }
+
+    function hideCreditCardField() {
+        var ccNumberStyle = document.paymentForm.creditCardNumber.style;
+        ccNumberStyle.visibility = 'hidden';
+    }
+</script>
+</html>

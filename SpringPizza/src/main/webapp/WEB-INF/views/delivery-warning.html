@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Pizza</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h2>Delivery Unavailable</h2>
+
+<p>
+    The address is outside of our delivery area. The order
+    may still be taken for carry-out.
+</p>
+
+<!--/*@thymesVar id="flowExecutionUrl" type="java.lang.String"*/-->
+<a th:href="${flowExecutionUrl} + '&_eventId=accept'">Accept</a>
+<a th:href="${flowExecutionUrl} + '&_eventId=cancel'">Cancel</a>
+</body>
+</html>

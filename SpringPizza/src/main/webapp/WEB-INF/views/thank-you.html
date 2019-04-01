@@ -1,0 +1,31 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Pizza</title>
+    <link rel="stylesheet"
+          type="text/css"
+          th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<h2>Thank you for your order!</h2>
+
+<form method="post">
+    <!--/*@thymesVar id="flowExecutionKey" type="java.lang.String"*/-->
+    <input type="hidden" name="_flowExecutionKey"
+           th:value="${flowExecutionKey}"/>
+    <input type="submit" name="_eventId_finished" value="Finished"/>
+</form>
+
+<form method="post">
+    <!--/*@thymesVar id="flowExecutionKey" type="java.lang.String"*/-->
+    <input type="hidden" name="_flowExecutionKey"
+           th:value="${flowExecutionKey}"/>
+    <input type="hidden" name="_eventId"
+           value="finished"/>
+    <input type="submit" value="Finished"/>
+</form>
+
+<!--/*@thymesVar id="flowExecutionUrl" type="java.lang.String"*/-->
+<a th:href="${flowExecutionUrl + '&_eventId=finished'}">Finished</a>
+</body>
+</html>
